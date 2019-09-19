@@ -16,6 +16,12 @@ export default (env, argv) => {
       inline: true,
       port: 8000
     },
+    resolve: {
+      modules: [
+        srcPath,
+        'node_modules'
+      ]
+    },
     plugins: [
       new HtmlWebpackPlugin({
         filename: 'index.html',
@@ -27,6 +33,20 @@ export default (env, argv) => {
       filename: '[name].js',
       chunkFilename: '[name].js',
       sourceMapFilename: '[file].map'
+    },
+    module: {
+      rules: [{
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [ '@babel/env', { modules: false, useBuiltIns: 'usage', corejs: '3.0.0' } ]
+            ]                                                             
+          }
+        }
+      }]
     }
   }
 }
