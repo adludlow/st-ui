@@ -8,6 +8,8 @@ const players = (state = initialState, action) => {
       return {
         players: action.players
       }
+    default:
+      return state;
   };
 };
 
